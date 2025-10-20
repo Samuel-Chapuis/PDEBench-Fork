@@ -159,9 +159,8 @@ from jax import device_put, lax
 # Hydra
 from omegaconf import DictConfig
 
-sys.path.append("..")
+sys.path.append(r"C:\Users\alexa\Documents\MASTER PARIS SACLAY\COURSES\BDRP\PDEBench-Fork\pdebench\data_gen\data_gen_NLE")
 from utils import Courant, Courant_diff, bc, init, limiting
-
 logger = logging.getLogger(__name__)
 
 
