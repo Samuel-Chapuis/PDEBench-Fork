@@ -155,6 +155,10 @@ import hydra
 import jax
 import jax.numpy as jnp
 from jax import device_put, lax
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+
 
 # Hydra
 from omegaconf import DictConfig
@@ -169,7 +173,7 @@ def _pass(carry):
 
 
 # Init arguments with Hydra
-@hydra.main(config_path="config")
+@hydra.main(config_path="config/args", config_name="config")
 def main(cfg: DictConfig) -> None:
     # basic parameters
     pi_inv = 1.0 / jnp.pi
@@ -307,6 +311,8 @@ def main(cfg: DictConfig) -> None:
             uu,
         )
     else:
+        save_dir = cwd + cfg.args.save
+        os.makedirs(save_dir, exist_ok=True)
         jnp.save(
             cwd
             + cfg.args.save
@@ -324,3 +330,31 @@ def main(cfg: DictConfig) -> None:
 
 if __name__ == "__main__":
     main()
+    uu = np.load("./burgers1D_solution/Burgers_sin_u1.0_Nu0.01.npy")
+    xc = np.load("./burgers1D_solution/x_coordinate.npy")
+    tc = np.load("./burgers1D_solution/t_coordinate.npy")
+    # store data for trainning our model
+    # np.savez_compressed('./burgers1D_solution/burgers1D_training_data_Nu0.01.npz', u=uu, x=xc, t=tc)
+
+    # plot results
+    num_times = 10  # desired number of time snapshots
+    time_indices = np.linspace(0, len(tc)-2, num=num_times, endpoint=True,dtype=int)
+
+    for i in time_indices:
+        plt.plot(xc, uu[i], label=f't={tc[i]:.2f}')
+
+    plt.xlabel('x') # position in the space (spatial grid points xc)
+    plt.ylabel('u(x,t)') # velocity u at each spatial position/grid point
+    plt.title('1D Burgers Equation Solution with viscosity = 0.01')
+    plt.legend(fontsize = 7)
+    plt.show()
+
+    # heatmap
+    plt.figure(figsize=(8, 6))
+    plt.imshow(uu, extent=[xc[0], xc[-1], tc[-1], tc[0]], aspect='auto', cmap='viridis')
+    plt.colorbar(label='u(x,t)')
+    plt.xlabel('Position x')
+    plt.ylabel('Time t')
+    plt.title('Heatmap of 1D Burgers Solution u(x,t) with viscosity = 0.01')
+    plt.gca().invert_yaxis()  # Show earliest time at top
+    plt.show()

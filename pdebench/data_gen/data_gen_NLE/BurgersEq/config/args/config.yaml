@@ -1,12 +1,12 @@
 args:
-  save: "../save/burgers/"
-  dt_save: 0.01
-  ini_time: 0.
-  fin_time: 2.
+  save: "./burgers1D_solution/"
+  dt_save: 0.01 # time interval -> record data every 0.01 units of simulation time. controls how often the solution data is saved.
+  ini_time: 0. # initial time of simulation.
+  fin_time: 2. # final time of simulation -> simulation runs until t = 2 -> len(tc) = (2-0)/0.01 = 201 (need to +1 since we count the initial time = 0)
   nx: 1024
   xL: -1.
   xR: 1.
-  epsilon: 1.e-2
+  epsilon: 0.01 # viscosity
   u0: 1.
   du: 0.1
   CFL: 4.e-1
