@@ -333,11 +333,12 @@ if __name__ == "__main__":
     uu = np.load("./burgers1D_solution/Burgers_sin_u1.0_Nu0.01.npy")
     xc = np.load("./burgers1D_solution/x_coordinate.npy")
     tc = np.load("./burgers1D_solution/t_coordinate.npy")
-    # store data for trainning our model
+
+    # store data for trainning our NFTM model
     # np.savez_compressed('./burgers1D_solution/burgers1D_training_data_Nu0.01.npz', u=uu, x=xc, t=tc)
 
     # plot results
-    num_times = 10  # desired number of time snapshots
+    num_times = 10  # number of time snapshots
     time_indices = np.linspace(0, len(tc)-2, num=num_times, endpoint=True,dtype=int)
 
     for i in time_indices:
