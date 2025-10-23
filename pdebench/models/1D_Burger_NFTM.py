@@ -11,5 +11,5 @@ import json
 from pathlib import Path
 
 
-data = np.load('burgers_training_data.npz')
-uu = data['u']  # shape (num_times, nx)
+data = np.load('burgers1D_training_data_Nu0.01.npz')
+uu = data['u']  # u(x,t)
