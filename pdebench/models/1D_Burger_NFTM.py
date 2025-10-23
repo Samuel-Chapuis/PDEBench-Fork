@@ -10,3 +10,6 @@ import time
 import json
 from pathlib import Path
 
+
+data = np.load('burgers_training_data.npz')
+uu = data['u']  # shape (num_times, nx)
