@@ -335,7 +335,7 @@ if __name__ == "__main__":
     tc = np.load("./burgers1D_solution/t_coordinate.npy")
 
     # store data for trainning our NFTM model
-    # np.savez_compressed('./burgers1D_solution/burgers1D_training_data_Nu0.01.npz', u=uu, x=xc, t=tc)
+    # np.savez_compressed('./NFTM/burgers1D_training_data_Nu0.01.npz', u=uu, x=xc, t=tc)
 
     # plot results
     num_times = 10  # number of time snapshots
